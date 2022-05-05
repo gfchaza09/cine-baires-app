@@ -1,0 +1,115 @@
+.section--detalle {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.section--detalle > h2 {
+    margin: 130px auto 30px;
+    font-size: 2rem;
+}
+
+.section-container--detalle {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+}
+
+.section-container--detalle > img {
+    width: 450px;
+    height: 600px;
+    -webkit-box-shadow: 0px 0px 14px 2px rgba(0,0,0,0.75); 
+    box-shadow: 0px 0px 14px 2px rgba(0,0,0,0.75);
+}
+
+.container-text--detalle {
+    width: 50%;
+    padding: 0px 20px;
+}
+
+.container-text--detalle > h3 {
+    margin-top: 10px;
+}
+
+.container-text--detalle > p {
+    text-align: justify;
+}
+
+.container-text--detalle > div {
+    position: relative;
+    margin-top: 100px;
+}
+
+.container-text--detalle > a {
+    color: #234975;
+    text-align: justify;
+}
+
+.btn-back {
+    background: #f2f2f2;
+    color: #4cb050;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75); 
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+    transition: transform .8s;
+}
+
+.btn-back:hover {
+    transform: scale(1.1);
+}
+
+/* MEDIA QUERIES  */
+@media (max-width: 920px) {
+    .section--detalle {
+        height: auto;
+    }
+
+    .section--detalle > h2 {
+        text-align: center;
+    }
+
+    .container-text--detalle {
+        width: 90%;
+        margin-top: 30px;
+    }
+
+    .container-text--detalle > h3 {
+        font-size: 32px;
+        margin-top: 15px;
+    }
+
+    .container-text--detalle > p, .container-text--detalle > ul, .container-text--detalle > a {
+        font-size: 20px;
+    }
+
+    .container-text--detalle > div {
+        margin: 90px 0px 130px 0px;
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .section--detalle > h2 {
+        margin: 140px auto 40px;
+        font-size: 3rem;
+    }
+
+    .section-container--detalle > img {
+        width: 100%;
+        height: 600px;
+    }
+
+    .container-text--detalle {
+        width: 95%;
+    }
+}

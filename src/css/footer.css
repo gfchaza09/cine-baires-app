@@ -1,0 +1,21 @@
+.footer {
+    width: 100%;
+    height: 50px;
+    padding: 1rem;
+    background: #15241e;
+    color: #cec7c7;
+    font-size: 0.8rem;
+    bottom: 0;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.footer-content > p > a {
+    text-decoration: underline;
+    color: #cec7c7
+}
