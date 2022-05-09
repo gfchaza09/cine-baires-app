@@ -25,13 +25,28 @@ body {
     right: 10px;
     top: 10px;
     border: none;
-    transition: transform .8s;
 }
 
 .favourite-btn:hover {
     cursor: pointer;
 }
 
-.favourite-btn:focus{
-    transform: scale(1.1);
+.favourite-btn:focus {
+    animation-name: like;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes like {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
