@@ -31,9 +31,9 @@ body {
     cursor: pointer;
 }
 
-.favourite-btn:focus {
+.like {
     animation-name: like;
-    animation-duration: 1s;
+    animation-duration: .6s;
     animation-timing-function: ease-out;
 }
 

@@ -44,7 +44,7 @@ const Listado = ({ addOrRemoveFavs, favCheck }) => {
               return (
                 <div className='container-card--listado' key={movie.id}>
                   <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="movie-poster"/>
-                  <button className='favourite-btn' onClick={addOrRemoveFavs} data-movie-id={movie.id}>{favCheck(`${movie.id}`) ? ' ❤️ ' : ' 🖤 '}</button>
+                  <button className={`favourite-btn ${favCheck(`${movie.id}`) ? "like" : ""}` } onClick={addOrRemoveFavs} data-movie-id={movie.id}>{favCheck(`${movie.id}`) ? ' ❤️ ' : ' 🖤 '}</button>
                   <div className='card-text--listado'>
                     <h3>{movie.original_title.length > 28 ? `${movie.original_title.substring(0,28)}...` : movie.original_title}</h3>
                     <p>{movie.overview.substring(0,100)}...</p>
