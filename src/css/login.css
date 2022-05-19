@@ -84,7 +84,12 @@
         margin: 10px auto;
     }
 
-    .form-input, .form-btn {
+    .form-input, .form-btn, .google-btn {
         width: 100%;
+    }
+
+    .google-btn {
+        display: flex;
+        justify-content: center;
     }
 }

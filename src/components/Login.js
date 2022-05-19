@@ -22,7 +22,7 @@ const Login = () => {
       onAuthStateChanged(auth, (user)=>{
         if (user) {
           dispatch(login(user.uid, user.displayName));
-          navigate("/listado");
+          navigate("/home");
         }
       });
     }, []);
@@ -88,7 +88,7 @@ const Login = () => {
   return (
       <>
         {
-            token && <Navigate to="/listado" state={{ from: location }} replace />
+            token && <Navigate to="/home" state={{ from: location }} replace />
         }
         <section className='section--login'>
             <div className='container--login'>
@@ -99,7 +99,9 @@ const Login = () => {
                     <button className='form-btn' type='submit'>Ingresar</button>
                     <span onClick={handleAccount}>¿No tienes una cuenta? Click aquí.</span>
                 </form>
-                <GoogleButton onClick={handleGoogleLogin}/>
+                <div className='google-btn'>
+                    <GoogleButton onClick={handleGoogleLogin}/>
+                </div>
             </div>
         </section>
       </>

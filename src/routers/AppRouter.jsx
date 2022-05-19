@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 // Páginas
+import Home from '../pages/Home';
 import Listado from '../pages/Listado';
 import Buscador from '../pages/Buscador';
 import Detalle from '../pages/Detalle';
@@ -95,6 +96,7 @@ const AppRouter = () => {
     <>
         <Header favMovies={ favMovies } />
         <Routes>
+          <Route exact path='home' element={<Home />} />
           <Route exact path='listado' element={ <Listado favMovies={ favMovies } addOrRemoveFavs={ addOrRemoveFavs } favCheck={favCheck}/>} />
           <Route exact path="detalle" element={ <Detalle />} />
           <Route exact path='favoritos' element={ <Favoritos favMovies={ favMovies } addOrRemoveFavs={ addOrRemoveFavs } favCheck={favCheck}/>} />

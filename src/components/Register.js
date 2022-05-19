@@ -74,7 +74,7 @@ const Register = () => {
       return;
     }
 
-    dispatch(register(email, password, username))
+    dispatch(register(email, password, username));
   }
 
   const handleAccount = () => {
@@ -86,7 +86,7 @@ const Register = () => {
   return (
     <>
       {
-        token && <Navigate to="/listado" state={{ from: location }} replace />
+        token && <Navigate to="/home" state={{ from: location }} replace />
       }
       <section className='section--register'>
         <div className='container--register'>
