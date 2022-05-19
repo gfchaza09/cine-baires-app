@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 // Styles
 import '../css/header.css';
 
+// Acciones 
+import { logout } from '../actions/auth';
+
 const Header = ( { favMovies } ) => {
+
+    const dispatch = useDispatch();
 
     const [token, setToken] = useState("");
 
@@ -47,8 +53,7 @@ const Header = ( { favMovies } ) => {
       if(menuOpen) {
         setMenuOpen(false);
       };
-      sessionStorage.clear();
-      window.location.reload();
+      dispatch(logout());
     }
 
     useEffect(() => {
@@ -66,7 +71,7 @@ const Header = ( { favMovies } ) => {
             <nav className={`header-content--nav ${menuOpen ? "is-menu" : ""}`}>
               <ul>
                 <li>
-                  <NavLink onClick={handleMenuClose} to="/"><span><i className='fas fa-home'></i> Home</span></NavLink>
+                  <NavLink onClick={handleMenuClose} to="/listado"><span><i className='fas fa-home'></i> Home</span></NavLink>
                 </li>
                 <li>
                   <NavLink onClick={handleMenuClose} to="/listado"><span><i className='fas fa-list'></i> Listado</span></NavLink>
@@ -77,9 +82,9 @@ const Header = ( { favMovies } ) => {
                 <li>
                   <NavLink onClick={handleMenuClose} to="/buscador"><span><i className='fas fa-search'></i> Buscar</span></NavLink>
                 </li>
-                {
-                  token && <li id="btn-logout"><NavLink onClick={handleLogout} to="/"><span><i className="fas fa-sign-out-alt"></i> Salir</span></NavLink></li>
-                }
+                <button onClick={handleLogout} id="btn-logout">
+                  <span><i className="fas fa-sign-out-alt"></i> Salir</span>
+                </button>
               </ul>
             </nav>
             <div className='header-content--toggle'>

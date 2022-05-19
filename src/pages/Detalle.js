@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import swal from '@sweetalert/with-react';
 
@@ -9,8 +9,6 @@ import '../css/detalle.css';
 
 const Detalle = () => {
 
-  let token = sessionStorage.getItem("token");
-  let location = useLocation();
   let navigate = useNavigate();
 
   let query = new URLSearchParams(window.location.search);
@@ -39,9 +37,6 @@ const Detalle = () => {
 
   return (
     <>
-      {
-        !token && <Navigate to="/" state={{ from: location }} replace />
-      }
       {
         !movieData && <p>Cargando...</p>
       }

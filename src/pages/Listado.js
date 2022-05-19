@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate, NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import axios from 'axios';
 import swal from '@sweetalert/with-react';
@@ -8,9 +8,6 @@ import swal from '@sweetalert/with-react';
 import '../css/listado.css';
 
 const Listado = ({ addOrRemoveFavs, favCheck }) => {
-
-  let token = sessionStorage.getItem("token");
-  let location = useLocation();
 
   const [moviesList, setMoviesList] = useState([]);
 
@@ -33,9 +30,6 @@ const Listado = ({ addOrRemoveFavs, favCheck }) => {
 
   return (
     <>
-      {
-        !token && <Navigate to="/" state={{ from: location }} replace />
-      }
       <section className='section--listado'>
         <h2>Películas Populares 🎥</h2>
         <div className='section-container--listado'>

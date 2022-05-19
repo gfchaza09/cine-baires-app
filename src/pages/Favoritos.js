@@ -1,19 +1,13 @@
 import React from 'react';
-import { Navigate, NavLink, useLocation } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 // Styles
 import '../css/favoritos.css';
 
 const Favoritos = ({ favMovies, addOrRemoveFavs, favCheck }) => {
 
-  let token = sessionStorage.getItem("token");
-  let location = useLocation();
-
   return (
     <>
-      {
-        !token && <Navigate to="/" state={{ from: location }} replace />
-      }
       <section className='section--favoritos'>
         <h2>Favoritos ⭐</h2>
         <div className='section-container--favoritos'>

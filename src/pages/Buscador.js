@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Navigate, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import swal from '@sweetalert/with-react';
 
@@ -9,8 +9,6 @@ import '../css/buscador.css';
 
 const Buscador = ({ addOrRemoveFavs, favCheck }) => {
 
-    let token = sessionStorage.getItem("token");
-    let location = useLocation();
     let navigate = useNavigate();
 
     let query = new URLSearchParams(window.location.search);
@@ -64,9 +62,6 @@ const Buscador = ({ addOrRemoveFavs, favCheck }) => {
 
   return (
     <>
-        {
-          !token && (<Navigate to="/" state={{ from: location }} replace />)
-        }
         <section className='section--buscador'>
             <h2>Página de búsqueda 🔍</h2>
             <div className='section-container--buscador'>
