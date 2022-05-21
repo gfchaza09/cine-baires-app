@@ -5,7 +5,7 @@ import '../css/home.css';
 
 const Home = () => {
 
-    const nameUser = useSelector(state => state.auth.displayName);
+  const nameUser = useSelector(state => state.auth.displayName);
 
   return (
     <>

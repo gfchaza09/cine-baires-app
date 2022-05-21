@@ -7,7 +7,7 @@ import swal from '@sweetalert/with-react';
 // Styles
 import '../css/buscador.css';
 
-const Buscador = ({ addOrRemoveFavs, favCheck }) => {
+const Buscador = ({ handleFavorites, favCheck }) => {
 
     let navigate = useNavigate();
 
@@ -41,11 +41,11 @@ const Buscador = ({ addOrRemoveFavs, favCheck }) => {
           axios.get(endPoint)
             .then(res=>{
                 const apiData = res.data.results;
-                // Filtramos las películas que no tienen poster
+                // Filtramos películas que no tienen poster
                 let moviesWithoutPoster = apiData.filter((movie) => {
                     return movie.poster_path !== null;
                 })
-                // Filtramos las películas que no tienen reseña
+                // Filtramos películas que no tienen reseña
                 let moviesWithoutOverview = moviesWithoutPoster.filter((movie) => {
                     return movie.overview !== "";
                 })
@@ -83,7 +83,7 @@ const Buscador = ({ addOrRemoveFavs, favCheck }) => {
                                 return (
                                     <div className='container-card--buscador' key={movie.id}>
                                         <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="movie-poster"/>
-                                        <button className={`favourite-btn ${favCheck(`${movie.id}`) ? "like" : ""}` } onClick={addOrRemoveFavs} data-movie-id={movie.id}>{favCheck(`${movie.id}`) ? ' ❤️ ' : ' 🖤 '}</button>
+                                        <button className={`favourite-btn ${favCheck(`${movie.id}`) ? "like" : ""}` } onClick={handleFavorites} data-movie-id={movie.id}>{favCheck(`${movie.id}`) ? ' ❤️ ' : ' 🖤 '}</button>
                                         <div className='card-text--buscador'>
                                             <h3>{movie.original_title.length > 28 ? `${movie.original_title.substring(0,28)}...` : movie.original_title}</h3>
                                             <p>{movie.overview.substring(0,100)}...</p>

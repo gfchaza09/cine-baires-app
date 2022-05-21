@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 // Styles
@@ -7,10 +7,12 @@ import '../css/header.css';
 
 // Acciones 
 import { logout } from '../actions/auth';
+import { clean } from '../actions/fav';
 
-const Header = ( { favMovies } ) => {
+const Header = () => {
 
     const dispatch = useDispatch();
+    const dataFav = useSelector(state => state.fav.favData);
 
     const [token, setToken] = useState("");
 
@@ -54,6 +56,7 @@ const Header = ( { favMovies } ) => {
         setMenuOpen(false);
       };
       dispatch(logout());
+      dispatch(clean());
     }
 
     useEffect(() => {
@@ -77,7 +80,7 @@ const Header = ( { favMovies } ) => {
                   <NavLink onClick={handleMenuClose} to="/listado"><span><i className='fas fa-list'></i> Listado</span></NavLink>
                 </li>
                 <li>
-                  <NavLink onClick={handleMenuClose} to="/favoritos"><span><i className="fas fa-heart"></i> Favoritos{token && `(${favMovies.length})`}</span></NavLink>
+                  <NavLink onClick={handleMenuClose} to="/favoritos"><span><i className="fas fa-heart"></i> Favoritos{token && `${!dataFav ? "" : dataFav.length}`}</span></NavLink>
                 </li>
                 <li>
                   <NavLink onClick={handleMenuClose} to="/buscador"><span><i className='fas fa-search'></i> Buscar</span></NavLink>
