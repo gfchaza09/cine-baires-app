@@ -77,6 +77,7 @@ const Login = () => {
         }
 
         dispatch(emailAndPasswordLogin(email,password));
+        navigate("/home", {replace: true});
     };
 
     const handleAccount = () => {
