@@ -75,6 +75,12 @@ const Register = () => {
     }
 
     dispatch(register(email, password, username));
+
+    swal(<h2>Gracias por registrate. Ingresa tu email y contraseña en la página de inicio de sesión.</h2>, {
+      icon: "success"
+    })
+    
+    navigate("/")
   }
 
   const handleAccount = () => {
