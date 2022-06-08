@@ -76,9 +76,13 @@
 }
 
 @media (max-width: 480px) {
+    .section--login {
+        background-color: #78b955;
+    }
     .container--login {
         width: 100%;
         align-items: stretch;
+        box-shadow: none;
     }
     .container--login > h2, .container-form--login span {
         margin: 10px auto;

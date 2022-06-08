@@ -1,34 +1,34 @@
 import { useEffect, useState } from 'react';
-// import axios from 'axios';
-import swal from '@sweetalert/with-react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 import GoogleButton from 'react-google-button';
 
-import { emailAndPasswordLogin, googleLogin, login } from '../actions/auth';
+// Utils
+import { swal } from '../utils/swal';
 
+// Actions
+import { emailAndPasswordLogin, googleLogin, login } from '../actions/auth';
 
 // Styles
 import '../css/login.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-
 const Login = () => {
 
     const auth = getAuth();
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
   
     useEffect(() => {
       onAuthStateChanged(auth, (user)=>{
         if (user) {
           dispatch(login(user.uid, user.displayName));
-          navigate("/home");
+          navigate("/home", {replace: true});
         }
       });
     }, []);
-
-    let navigate = useNavigate();
-    let location = useLocation();
 
     const [data, setData] = useState({
         email: "",
@@ -56,23 +56,17 @@ const Login = () => {
         const regexPassword = /^(?=[^\d_].*?\d)\w(\w|[!@#$%]){7,20}/;
         
         if(email === "" || password === "") {
-            swal(<h2>Los campos no pueden estar vacíos.</h2>, {
-                icon: "warning",
-                });
+            swal({type: 'warning', message: 'Los campos no pueden estar vacíos.'});
             return;
         }
 
         if( email!=="" && !regexEmail.test(email) ) {
-            swal(<h2>Debes escribir una dirección de correo válida.</h2>, {
-                icon: "warning",
-                });
+            swal({type: 'warning', message: 'Debes escribir una dirección de correo válida.'});
             return;
         }
 
         if( password!== "" && !regexPassword.test(password) ) {
-            swal(<h2>La contraseña debe iniciar con una letra y debe contener al menos 1 dígito. Se admiten desde 8 hasta 20 caracteres.</h2>, {
-                icon: "warning",
-            });
+            swal({type: 'warning', message: 'La contraseña debe iniciar con una letra y debe contener al menos 1 dígito. Se admiten desde 8 hasta 20 caracteres.'});
             return;
         }
 
@@ -81,16 +75,11 @@ const Login = () => {
     };
 
     const handleAccount = () => {
-        navigate("/register");
+        navigate("/register", {replace: true});
     };
-
-    let token = sessionStorage.getItem("token");
 
   return (
       <>
-        {
-            token && <Navigate to="/home" state={{ from: location }} replace />
-        }
         <section className='section--login'>
             <div className='container--login'>
                 <h2>Inicio de sesión</h2>

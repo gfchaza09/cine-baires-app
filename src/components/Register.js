@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import swal from '@sweetalert/with-react';
 
+// Utils
+import { swal } from '../utils/swal';
+
+// Actions
 import { register } from '../actions/auth';
 
-//Estilos
+// Styles
 import '../css/register.css';
 
 
 const Register = () => {
 
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
   const location = useLocation();
 
   const [data, setData] = useState({
@@ -40,54 +41,41 @@ const Register = () => {
     const regexPassword = /^(?=[^\d_].*?\d)\w(\w|[!@#$%]){7,20}/;
     
     if(email === "" || password === "" || username.trim() === "" || password2 === "") {
-      swal(<h2>Los campos no pueden estar vacíos.</h2>, {
-          icon: "warning",
-        });
+      swal({type: "warning", message:"Los campos no pueden estar vacíos."});
       return;
     }
 
     if( email!=="" && !regexEmail.test(email) ) {
-      swal(<h2>Debes escribir una dirección de correo válida.</h2>, {
-          icon: "warning",
-        });
+      swal({type: "warning", message:"Debes escribir una dirección de correo válida."});
       return;
     }
 
     if(username.trim().length<2) {
-      swal(<h2>Debes escribir un nombre de usuario con más de 1 caracter</h2>, {
-        icon: "warning",
-      });
+      swal({type: "warning", message:"Debes escribir un nombre de usuario con más de 1 caracter."});
       return;
     }
 
     if( password!== "" && !regexPassword.test(password) ) {
-      swal(<h2>La contraseña debe iniciar con una letra y debe contener al menos 1 dígito. Se admiten desde 8 hasta 20 caracteres.</h2>, {
-        icon: "warning",
-      });
+      swal({type: "warning", message:"La contraseña debe iniciar con una letra y debe contener al menos 1 dígito. Se admiten desde 8 hasta 20 caracteres."});
       return;
     }
 
     if( password!== "" && password !== password2 ) {
-      swal(<h2>Las contraseñas deben coincidir.</h2>, {
-        icon: "warning",
-      });
+      swal({type: "warning", message:"Las contraseñas deben coincidir."});
       return;
     }
 
     dispatch(register(email, password, username));
-
-    swal(<h2>Gracias por registrate. Ingresa tu email y contraseña en la página de inicio de sesión.</h2>, {
-      icon: "success"
-    })
+    swal({type: "success", message:"Gracias por registrate. Ingresa tu email y contraseña en la página de inicio de sesión."});
     
-    navigate("/")
+    navigate("/", {replace: true})
   }
 
   const handleAccount = () => {
-    navigate('/');
+    navigate('/', {replace: true});
   };
 
-  let token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   return (
     <>

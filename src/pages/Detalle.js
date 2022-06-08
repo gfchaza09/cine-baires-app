@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import swal from '@sweetalert/with-react';
+// Utils
+import { swal } from '../utils/swal';
 
 // Styles
 import '../css/detalle.css';
@@ -22,12 +23,9 @@ const Detalle = () => {
       .then(res=>{
         const apiData = res.data;
         setMovieData(apiData);
-        console.log(apiData);
       })
       .catch(error => {
-        swal(<h2>Hubo errores, intenta más tarde.</h2>,{
-          icon: "error",
-        });
+        swal({type: "error", message:"Hubo errores, intenta más tarde..."});
       })
   }, [movieID])
 

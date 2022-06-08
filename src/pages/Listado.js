@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import axios from 'axios';
-import swal from '@sweetalert/with-react';
+
+// Utils
+import { swal } from '../utils/swal';
 
 // Styles
 import '../css/listado.css';
@@ -22,9 +24,7 @@ const Listado = ({ handleFavorites, favCheck }) => {
         setMoviesList(moviesWithoutOverview);
       })
       .catch(error => {
-        swal(<h2>Hubo errores, intenta más tarde.</h2>,{
-          icon: "error",
-        })
+        swal({type: "error", message:"Hubo errores, intenta más tarde..."})
       })
   }, [setMoviesList]);
 
@@ -54,4 +54,4 @@ const Listado = ({ handleFavorites, favCheck }) => {
   )
 }
 
-export default Listado
+export default Listado;

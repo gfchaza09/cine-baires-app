@@ -1,5 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import swal from "@sweetalert/with-react";
+
+// Utils
+import { swal } from '../utils/swal';
 
 import { googleAuthProvider } from "../firebase/config-firebase";
 import { types } from "../types/types";
@@ -13,9 +15,7 @@ export const googleLogin = () => {
             .then(({user}) => {
                 const token = user.accessToken;
                 sessionStorage.setItem("token",token);
-                swal(<h2>¡Perfecto! Ingresaste correctamente</h2>, {
-                    icon: "success",
-                })
+                swal({type: 'success', message: 'Ingresaste correctamente, disfruta de nuestro sitio web.'});
                 dispatch(login(user.uid, user.displayName));
             });
     };
@@ -27,15 +27,11 @@ export const emailAndPasswordLogin = (email, password) => {
             .then(({user})=> {
                 const token = user.accessToken;
                 sessionStorage.setItem("token",token);
-                swal(<h2>¡Perfecto! Ingresaste correctamente</h2>, {
-                    icon: "success",
-                })
+                swal({type: 'success', message: 'Ingresaste correctamente, disfruta de nuestro sitio web.'});
                 dispatch(login(user.uid, user.displayName));
             })
             .catch ((error)=>{
-                swal(<h2>Las credenciales no son válidas.</h2>,{
-                    icon: "error",
-                })
+                swal({type: 'error', message: 'Las credenciales no son válidas.'});
             })
     }
 }
@@ -49,9 +45,7 @@ export const register = (email, password, username) => {
                 dispatch(login(user.uid, user.displayName));
             })
             .catch((error)=> {
-                swal(<h2>Ya existe una cuenta con ese email.</h2>,{
-                    icon: "error",
-                })
+                swal({type: 'error', message: 'Ya existe una cuenta con ese email.'});
             });
     };
 };

@@ -79,7 +79,9 @@
     height: auto;
     margin: 25px;
     /* background-color: #5c914c; */
-    background-color: rgba(0, 0, 0, 0.253);
+    background-color: #1772a7;
+    /* background-color: #348e3888; */
+    color: #dfdfdf;
     border-radius: 8px;
     text-align: center;
     -webkit-box-shadow: 0px 0px 14px 2px rgba(0,0,0,0.75); 

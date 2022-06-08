@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import swal from '@sweetalert/with-react';
+// Utils
+import { swal } from '../utils/swal';
 
 // Styles
 import '../css/buscador.css';
@@ -22,13 +23,9 @@ const Buscador = ({ handleFavorites, favCheck }) => {
         const keyword = e.currentTarget.keyword.value.trim();
 
         if (keyword.length === 0) {
-            swal(<h3>Tienes que escribir una palabra clave</h3>,{
-                icon:"warning",
-            });
+            swal({type: "warning", message:"Tienes que escribir una palabra clave."});
         } else if (keyword.length < 2) {
-            swal(<h3>Tienes que escribir más de un caracter</h3>,{
-                icon:"warning",
-            });
+            swal({type: "warning", message:"Tienes que escribir más de un caracter."});
         } else {
             e.currentTarget.keyword.value = "";
             navigate(`/buscador?keyword=${keyword}`);
@@ -52,9 +49,7 @@ const Buscador = ({ handleFavorites, favCheck }) => {
                 setMoviesResult(moviesWithoutOverview);
             })
             .catch(error => {
-                swal(<h2>Hubo errores, intenta más tarde.</h2>,{
-                    icon: "error",
-                })
+                swal({type: "error", message:"Hubo errores, intenta más tarde..."});
             })
       }
     }, [keyword])
@@ -101,4 +96,4 @@ const Buscador = ({ handleFavorites, favCheck }) => {
   )
 }
 
-export default Buscador
+export default Buscador;
