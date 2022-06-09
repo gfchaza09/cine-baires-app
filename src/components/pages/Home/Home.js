@@ -18,7 +18,7 @@ const Home = () => {
             </div>
             <div className='user-info'>
               <div>
-                <h2>Información de contacto</h2>
+                <h2>Información de usuario</h2>
                 <div className='user-info--text'>
                   <p>Nombre de usuario: {displayName}</p>
                   <p>Email: {email}</p>

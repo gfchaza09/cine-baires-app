@@ -41,8 +41,8 @@ export const register = (email, password, username) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then( async ({user})=> {
                 await updateProfile(auth.currentUser, {displayName: username, photoURL: '/assets/profile-photo.png'})
-                console.log(user);
                 dispatch(login(user.uid, user.displayName, user.email, user.photoURL));
+                swal({type: 'success', message: 'Gracias por registrate. Ingresa tu email y contraseña en la página de inicio de sesión.'});
             })
             .catch((error)=> {
                 swal({type: 'error', message: 'Ya existe una cuenta con ese email.'});

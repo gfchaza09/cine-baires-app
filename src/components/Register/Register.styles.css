@@ -23,17 +23,21 @@
     margin: 10px 0px 30px;
 }
 
-.container-form--register span {
+.container-form--register a {
     color: #4cb050;
     font-size: 14px;
     margin: 10px auto;
+    text-decoration: none;
 }
 
-.container-form--register span:hover {
+.container-form--register a:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
+.container-form--register .error {
+    outline: 1px solid #a83939;
+}
 
 /* MEDIA QUERIES */
 @media (max-width: 768px) {
@@ -47,7 +51,7 @@
         width: 100%;
         align-items: stretch;
     }
-    .container--register > h2, .container-form--register span {
+    .container--register > h2, .container-form--register a {
         margin: 10px auto;
     }
 

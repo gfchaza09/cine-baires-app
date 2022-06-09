@@ -56,17 +56,26 @@
     color: #ffffff;
 }
 
-.container-form--login span {
+.container-form--login a {
     color: #4cb050;
     font-size: 14px;
     margin: 10px auto;
+    text-decoration: none;
 }
 
-.container-form--login span:hover {
+.container-form--login a:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
+.container-form--login .error {
+    outline: 1px solid #a83939;
+}
+
+.error-text {
+    color: #a83939;
+    font-size: 14px;
+}
 
 /* MEDIA QUERIES */
 @media (max-width: 768px) {
@@ -84,7 +93,7 @@
         align-items: stretch;
         box-shadow: none;
     }
-    .container--login > h2, .container-form--login span {
+    .container--login > h2, .container-form--login a {
         margin: 10px auto;
     }
 

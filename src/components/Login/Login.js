@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import GoogleButton from 'react-google-button';
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 
-// Utils
-import { swal } from '../../utils/swal';
+import GoogleButton from 'react-google-button';
 
 // Actions
 import { emailAndPasswordLogin, googleLogin, login } from '../../store/actions/auth';
@@ -20,7 +20,19 @@ const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const initialValues = {
+        email: "",
+        password: "",
+    };
+
+    const required = "Campo obligatorio."
   
+    const validationSchema = Yup.object().shape({
+        email: Yup.string().email("Debe ser un email válido.").required(required),
+        password: Yup.string().required(required),
+    });
+
     useEffect(() => {
       onAuthStateChanged(auth, (user)=>{
         if (user) {
@@ -30,55 +42,22 @@ const Login = () => {
       });
     }, []);
 
-    const [data, setData] = useState({
-        email: "",
-        password: "",
-    });
-    
-    const {email, password} = data;
-    
-    const handleChange = (e) => {
-        const value = e.target.value;
-        setData({
-          ...data,
-          [e.target.name]: value
-        });
-    };
-
     const handleGoogleLogin = () => {
         dispatch(googleLogin());
     };
 
-    const handleEmailLogin = (e) => {
-        e.preventDefault();
+    const onSubmit = () => {
+        const { email, password } = values;
 
-        const regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const regexPassword = /^(?=[^\d_].*?\d)\w(\w|[!@#$%]){7,20}/;
-        
-        if(email === "" || password === "") {
-            swal({type: 'warning', message: 'Los campos no pueden estar vacíos.'});
-            return;
-        }
-
-        if( email!=="" && !regexEmail.test(email) ) {
-            swal({type: 'warning', message: 'Debes escribir una dirección de correo válida.'});
-            return;
-        }
-
-        if( password!== "" && !regexPassword.test(password) ) {
-            swal({type: 'warning', message: 'La contraseña debe iniciar con una letra y debe contener al menos 1 dígito. Se admiten desde 8 hasta 20 caracteres.'});
-            return;
-        }
-
-        dispatch(emailAndPasswordLogin(email,password));
+        dispatch(emailAndPasswordLogin(email, password));
         navigate("/", {replace: true});
-    };
-
-    const handleAccount = () => {
-        navigate("/register", {replace: true});
-    };
+    }
 
     const token = sessionStorage.getItem("token");
+
+    const formik = useFormik({ initialValues, validationSchema, onSubmit});
+
+    const { handleSubmit, handleChange, values, errors, touched, handleBlur } = formik;
 
   return (
       <>
@@ -88,11 +67,13 @@ const Login = () => {
         <section className='section--login'>
             <div className='container--login'>
                 <h2>Inicio de sesión</h2>
-                <form className='container-form--login' onSubmit={handleEmailLogin}>
-                    <input className='form-input' onChange={handleChange} type="email" name="email" value={email} placeholder='Correo Electrónico' />
-                    <input className='form-input' onChange={handleChange} type="password" name="password" value={password} placeholder='Contraseña' />
+                <form className='container-form--login' onSubmit={handleSubmit}>
+                    <input className={`form-input ${errors.email && touched.email ? "error" : ""}`} onChange={handleChange} type="email" name="email" value={values.email} placeholder='Correo Electrónico' onBlur= {handleBlur}/>
+                    {errors.email && touched.email && <span className='error-text'>{errors.email}</span>}
+                    <input className={`form-input ${errors.password && touched.password ? "error" : ""}`} onChange={handleChange} type="password" name="password" value={values.password} placeholder='Contraseña' onBlur= {handleBlur}/>
+                    {errors.password && touched.password && <span className='error-text'>{errors.password}</span>}
                     <button className='form-btn' type='submit'>Ingresar</button>
-                    <span onClick={handleAccount}>¿No tienes una cuenta? Click aquí.</span>
+                    <Link to="/register">¿No tienes una cuenta? Click aquí.</Link>
                 </form>
                 <div className='google-btn'>
                     <GoogleButton onClick={handleGoogleLogin}/>

@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 
 // Utils
 import { swal } from '../../utils/swal';
@@ -17,62 +19,34 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [data, setData] = useState({
+  const initialValues = {
     email: "",
+    username: "",
     password: "",
     password2: "",
-    username: "",
-  });
-
-  const {email, username, password, password2} = data;
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setData({
-      ...data,
-      [e.target.name]: value
-    })
   }
+
+  const required = "Campo obligatorio.";
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Debe ser un email válido").required(required),
+    username: Yup.string().min(2, "La cantidad mínima de caracteres es 2.").required(required),
+    password: Yup.string().required(required),
+    password2: Yup.string().required(required),
+  })
   
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const regexPassword = /^(?=[^\d_].*?\d)\w(\w|[!@#$%]){7,20}/;
-    
-    if(email === "" || password === "" || username.trim() === "" || password2 === "") {
-      swal({type: "warning", message:"Los campos no pueden estar vacíos."});
-      return;
-    }
-
-    if( email!=="" && !regexEmail.test(email) ) {
-      swal({type: "warning", message:"Debes escribir una dirección de correo válida."});
-      return;
-    }
-
-    if(username.trim().length<2) {
-      swal({type: "warning", message:"Debes escribir un nombre de usuario con más de 1 caracter."});
-      return;
-    }
-
-    if( password!== "" && !regexPassword.test(password) ) {
-      swal({type: "warning", message:"La contraseña debe iniciar con una letra y debe contener al menos 1 dígito. Se admiten desde 8 hasta 20 caracteres."});
-      return;
-    }
-
-    if( password!== "" && password !== password2 ) {
+  const onSubmit = () => {
+    if( values.password !== values.password2 ) {
       swal({type: "warning", message:"Las contraseñas deben coincidir."});
       return;
-    }
-
-    dispatch(register(email, password, username));
-    swal({type: "success", message:"Gracias por registrate. Ingresa tu email y contraseña en la página de inicio de sesión."});
-    
-    navigate("/login", {replace: true})
+    };
+    dispatch(register(values.email, values.password, values.username));
+    navigate("/login", {replace: true});
   }
 
-  const handleAccount = () => {
-    navigate('/login', {replace: true});
-  };
+  const formik = useFormik({ initialValues, validationSchema, onSubmit });
+
+  const { handleSubmit, handleChange, values, errors, touched, handleBlur } = formik;
 
   const token = sessionStorage.getItem("token");
 
@@ -84,13 +58,25 @@ const Register = () => {
       <section className='section--register'>
         <div className='container--register'>
           <h2>Registrarse</h2>
-            <form onSubmit={handleRegister} className='container-form--register'>
-              <input onChange={handleChange} className='form-input' type="email" name="email" value={email} placeholder='Correo Electrónico' />
-              <input onChange={handleChange} className='form-input' type="text" name="username" value={username} placeholder='Nombre de usuario' />
-              <input onChange={handleChange} className='form-input' type="password" name="password" value={password} placeholder='Contraseña' />
-              <input onChange={handleChange} className='form-input' type="password" name="password2" value={password2} placeholder='Confirmar Contraseña' />
+            <form onSubmit={handleSubmit} className='container-form--register'>
+              <input onChange={handleChange} className={`form-input ${errors.email && touched.email ? "error" : ""}`} type="email" name="email" value={values.email} placeholder='Correo Electrónico' onBlur={handleBlur}/>
+              {errors.email && touched.email && (
+                <span className="error-text">{errors.email}</span>
+              )}
+              <input onChange={handleChange} className={`form-input ${errors.username && touched.username ? "error" : ""}`} type="text" name="username" value={values.username} placeholder='Nombre de usuario' onBlur={handleBlur}/>
+              {errors.username && touched.username && (
+                <span className="error-text">{errors.username}</span>
+              )}
+              <input onChange={handleChange} className={`form-input ${errors.password && touched.password ? "error" : ""}`} type="password" name="password" value={values.password} placeholder='Contraseña' onBlur={handleBlur}/>
+              {errors.password && touched.password && (
+                <span className="error-text">{errors.password}</span>
+              )}
+              <input onChange={handleChange} className={`form-input ${errors.password2 && touched.password2 ? "error" : ""}`} type="password" name="password2" value={values.password2} placeholder='Confirmar Contraseña' onBlur={handleBlur}/>
+              {errors.password2 && touched.password2 && (
+                <span className="error-text">{errors.password2}</span>
+              )}
               <button className='form-btn' type='submit'>Crear cuenta</button>
-              <span onClick={handleAccount}>¿Ya tienes una cuenta? Click aquí</span>
+              <Link to="/login">¿Ya tienes una cuenta? Click aquí</Link>
             </form>
         </div>
       </section>
