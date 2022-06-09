@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Utils
-import { swal } from '../utils/swal';
+import { swal } from '../../../utils/swal';
 
 // Styles
-import '../css/detalle.css';
+import './Detalle.styles.css';
 
 const Detalle = () => {
 

@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc  } from "firebase/firestore/lite";
-import { db } from "../firebase/config-firebase";
-import { types } from "../types/types";
+import { db } from "../../firebase/config-firebase";
+import { types } from "../types";
 
 export const favAdd = (movieData) => {
 

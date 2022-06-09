@@ -1,7 +1,7 @@
 import React from 'react'
 
 //Components
-import Register from '../components/Register'
+import Register from '../../../Register/Register';
 
 const RegisterScreen = () => {
   return (

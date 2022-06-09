@@ -1,32 +1,33 @@
 import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { Routes, Route, useLocation} from 'react-router-dom';
 
 // Páginas públicas
-import LoginScreen from '../pages/LoginScreen';
-import RegisterScreen from '../pages/RegisterScreen';
+import LoginScreen from '../components/pages/auth/Login/LoginScreen';
+import RegisterScreen from '../components/pages/auth/Register/RegisterScreen';
 
-// Rutas a la aplicación
-import PrivateRouter from './PrivateRouter';
+// Ruta a la aplicación
 import AppRouter from './AppRouter';
+import PrivateRouter from './PrivateRouter';
+
+// const Error404 = lazy(()=> import('../components/pages/Error404/Error404'));
 
 const AuthRouter = () => {
+
+  const location = useLocation();
   
   return (
     <>
-    <Router>
-      <Routes>
-        <Route>
-          <Route path="/" element={<LoginScreen/>}/>
-          <Route path="register" element={<RegisterScreen/>}/>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/login" element={<LoginScreen/>} />
+        <Route path="/register" element={<RegisterScreen/>} />
 
-          <Route path='*' element= {
-            <PrivateRouter>
-              <AppRouter />
-            </PrivateRouter>
-          } />
-        </Route>
+        <Route path='*' element= {
+          <PrivateRouter>
+            <AppRouter />
+          </PrivateRouter>
+        } />
+        {/* <Route path='*' element= {<Suspense fallback={<>...</>}><Error404 /></Suspense>} /> */}
       </Routes>
-    </Router>
     </>
   )
 }

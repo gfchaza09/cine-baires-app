@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 // Styles
-import '../css/header.css';
+import './Header.styles.css';
 
 // Acciones 
-import { logout } from '../actions/auth';
-import { clean } from '../actions/fav';
+import { logout } from '../../store/actions/auth';
+import { clean } from '../../store/actions/fav';
 
 const Header = () => {
 
     const dispatch = useDispatch();
-    const { dataFav } = useSelector(state => {
+    const navigate = useNavigate();
+    const dataFav = useSelector(state => {
       return state.fav.data
     });
 
@@ -57,6 +58,7 @@ const Header = () => {
       };
       dispatch(logout());
       dispatch(clean());
+      navigate("/login", {replace: true});
     }   
 
   return (
@@ -73,7 +75,7 @@ const Header = () => {
                   <NavLink onClick={handleMenuClose} to="/listado"><span><i className='fas fa-list'></i> Listado</span></NavLink>
                 </li>
                 <li>
-                  <NavLink onClick={handleMenuClose} to="/favoritos"><span><i className="fas fa-heart"></i> Favoritos()</span></NavLink>
+                  <NavLink onClick={handleMenuClose} to="/favoritos"><span><i className="fas fa-heart"></i> Favoritos({dataFav.length})</span></NavLink>
                 </li>
                 <li>
                   <NavLink onClick={handleMenuClose} to="/buscador"><span><i className='fas fa-search'></i> Buscar</span></NavLink>
@@ -95,4 +97,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Header;

@@ -4,10 +4,10 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 // Utils
-import { swal } from '../utils/swal';
+import { swal } from '../../../utils/swal';
 
 // Styles
-import '../css/listado.css';
+import './Listado.styles.css';
 
 const Listado = ({ handleFavorites, favCheck }) => {
 

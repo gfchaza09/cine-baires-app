@@ -1,23 +1,23 @@
 import { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 //Componentes
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 
 // Páginas
-import Home from '../pages/Home';
-import Listado from '../pages/Listado';
-import Buscador from '../pages/Buscador';
-import Detalle from '../pages/Detalle';
-import Favoritos from '../pages/Favoritos';
+import Home from '../components/pages/Home/Home';
+import Listado from '../components/pages/Listado/Listado';
+import Buscador from '../components/pages/Buscador/Buscador';
+import Detalle from '../components/pages/Detalle/Detalle';
+import Favoritos from '../components/pages/Favoritos/Favoritos';
 
 // Acciones
-import { login } from '../actions/auth';
-import { favAdd, favRead, favRemove } from '../actions/fav';
+import { login } from '../store/actions/auth';
+import { favAdd, favRead, favRemove } from '../store/actions/fav';
 import { loadData } from '../helpers/loadData';
 
 const AppRouter = () => {
@@ -30,11 +30,11 @@ const AppRouter = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user)=>{
       if (user) {        
-        dispatch(login(user.uid, user.displayName));
+        dispatch(login(user.uid, user.displayName, user.email, user.photoURL));
         const favoritosData = await loadData(user.uid);
         dispatch(favRead(favoritosData));
       } else {
-        navigate('/');
+        navigate('/', {replace: true});
       }
     });
   }, [dispatch]);
@@ -75,7 +75,6 @@ const AppRouter = () => {
           <Route exact path="detalle" element={ <Detalle />} />
           <Route exact path='favoritos' element={ <Favoritos handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
           <Route exact path='buscador' element={ <Buscador handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
-          <Route path="*" element={<Navigate to="home" />} />
         </Routes>
         <Footer />
     </>

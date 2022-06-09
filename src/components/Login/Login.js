@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import GoogleButton from 'react-google-button';
 
 // Utils
-import { swal } from '../utils/swal';
+import { swal } from '../../utils/swal';
 
 // Actions
-import { emailAndPasswordLogin, googleLogin, login } from '../actions/auth';
+import { emailAndPasswordLogin, googleLogin, login } from '../../store/actions/auth';
 
 // Styles
-import '../css/login.css';
+import './Login.styles.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const Login = () => {
@@ -24,8 +24,8 @@ const Login = () => {
     useEffect(() => {
       onAuthStateChanged(auth, (user)=>{
         if (user) {
-          dispatch(login(user.uid, user.displayName));
-          navigate("/home", {replace: true});
+          dispatch(login(user.uid, user.displayName, user.email, user.photoURL));
+          navigate("/", {replace: true});
         }
       });
     }, []);
@@ -71,15 +71,20 @@ const Login = () => {
         }
 
         dispatch(emailAndPasswordLogin(email,password));
-        navigate("/home", {replace: true});
+        navigate("/", {replace: true});
     };
 
     const handleAccount = () => {
         navigate("/register", {replace: true});
     };
 
+    const token = sessionStorage.getItem("token");
+
   return (
       <>
+        {
+            token && <Navigate to="/" replace />
+        }
         <section className='section--login'>
             <div className='container--login'>
                 <h2>Inicio de sesión</h2>

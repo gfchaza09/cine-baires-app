@@ -1,22 +1,21 @@
 import { useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 // Utils
-import { swal } from '../utils/swal';
+import { swal } from '../../utils/swal';
 
 // Actions
-import { register } from '../actions/auth';
+import { register } from '../../store/actions/auth';
 
 // Styles
-import '../css/register.css';
+import './Register.styles.css';
 
 
 const Register = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [data, setData] = useState({
     email: "",
@@ -68,11 +67,11 @@ const Register = () => {
     dispatch(register(email, password, username));
     swal({type: "success", message:"Gracias por registrate. Ingresa tu email y contraseña en la página de inicio de sesión."});
     
-    navigate("/", {replace: true})
+    navigate("/login", {replace: true})
   }
 
   const handleAccount = () => {
-    navigate('/', {replace: true});
+    navigate('/login', {replace: true});
   };
 
   const token = sessionStorage.getItem("token");
@@ -80,7 +79,7 @@ const Register = () => {
   return (
     <>
       {
-        token && <Navigate to="/home" state={{ from: location }} replace />
+        token && <Navigate to="/" replace />
       }
       <section className='section--register'>
         <div className='container--register'>

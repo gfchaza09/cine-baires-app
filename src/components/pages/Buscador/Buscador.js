@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 // Utils
-import { swal } from '../utils/swal';
+import { swal } from '../../../utils/swal';
 
 // Styles
-import '../css/buscador.css';
+import './Buscador.styles.css';
 
 const Buscador = ({ handleFavorites, favCheck }) => {
 

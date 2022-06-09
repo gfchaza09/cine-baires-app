@@ -1,7 +1,0 @@
-.section--welcome {
-    display: flex;
-    flex-direction: column;
-    margin-top: 100px;
-    height: auto;
-    min-height: 100vh;
-}

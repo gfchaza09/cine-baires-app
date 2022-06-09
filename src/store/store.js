@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { AuthReducer } from '../reducers/authReducer';
-import { FavReducer } from '../reducers/favReducer';
+import { AuthReducer } from './reducers/authReducer';
+import { FavReducer } from './reducers/favReducer';
 
 const reducer = {
     auth: AuthReducer,
