@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,6 +20,8 @@ import { login } from '../store/actions/auth';
 import { favAdd, favRead, favRemove } from '../store/actions/fav';
 import { loadData } from '../helpers/loadData';
 
+const Error404 = lazy(()=> import('../components/pages/Error404/Error404'));
+
 const AppRouter = () => {
 
   const auth = getAuth();
@@ -34,7 +36,7 @@ const AppRouter = () => {
         const favoritosData = await loadData(user.uid);
         dispatch(favRead(favoritosData));
       } else {
-        navigate('/', {replace: true});
+        navigate('/login', {replace: true});
       }
     });
   }, [dispatch]);
@@ -69,12 +71,12 @@ const AppRouter = () => {
     <>
         <Header />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path='home' element={<Home />} />
-          <Route exact path='listado' element={ <Listado handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
-          <Route exact path="detalle" element={ <Detalle />} />
-          <Route exact path='favoritos' element={ <Favoritos handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
-          <Route exact path='buscador' element={ <Buscador handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
+          <Route path="/" element={<Home />} /> 
+          <Route path='listado' element={ <Listado handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
+          <Route path="detalle" element={ <Detalle />} />
+          <Route path='favoritos' element={ <Favoritos handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
+          <Route path='buscador' element={ <Buscador handleFavorites={ handleFavorites } favCheck={favCheck}/>} />
+          <Route path='*' element= {<Suspense fallback={<>...</>}><Error404 /></Suspense>} />
         </Routes>
         <Footer />
     </>

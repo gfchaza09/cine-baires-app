@@ -69,7 +69,7 @@ const Header = () => {
             <nav className={`header-content--nav ${menuOpen ? "is-menu" : ""}`}>
               <ul>
                 <li>
-                  <NavLink onClick={handleMenuClose} to="/home"><span><i className='fas fa-home'></i> Home</span></NavLink>
+                  <NavLink onClick={handleMenuClose} to="/"><span><i className='fas fa-home'></i> Home</span></NavLink>
                 </li>
                 <li>
                   <NavLink onClick={handleMenuClose} to="/listado"><span><i className='fas fa-list'></i> Listado</span></NavLink>

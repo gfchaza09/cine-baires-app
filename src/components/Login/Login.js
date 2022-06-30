@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useFormik } from "formik";
@@ -73,7 +73,7 @@ const Login = () => {
                     <input className={`form-input ${errors.password && touched.password ? "error" : ""}`} onChange={handleChange} type="password" name="password" value={values.password} placeholder='Contraseña' onBlur= {handleBlur}/>
                     {errors.password && touched.password && <span className='error-text'>{errors.password}</span>}
                     <button className='form-btn' type='submit'>Ingresar</button>
-                    <Link to="/register">¿No tienes una cuenta? Click aquí.</Link>
+                    <NavLink to="/register">¿No tienes una cuenta? Click aquí.</NavLink>
                 </form>
                 <div className='google-btn'>
                     <GoogleButton onClick={handleGoogleLogin}/>

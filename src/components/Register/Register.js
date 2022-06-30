@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useFormik } from "formik";
@@ -76,7 +76,7 @@ const Register = () => {
                 <span className="error-text">{errors.password2}</span>
               )}
               <button className='form-btn' type='submit'>Crear cuenta</button>
-              <Link to="/login">¿Ya tienes una cuenta? Click aquí</Link>
+              <NavLink to="/login">¿Ya tienes una cuenta? Click aquí</NavLink>
             </form>
         </div>
       </section>

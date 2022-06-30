@@ -1,8 +1,14 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import './Error404.styles.css';
 
 const Error404 = () => {
   return (
-    <div>Error404</div>
+    <div className='error'>
+      <h1>La página que buscas no existe</h1>
+      <NavLink to="/">Volver al inicio</NavLink>
+    </div>
   )
 }
 
